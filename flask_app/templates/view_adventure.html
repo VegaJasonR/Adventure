@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Adventure</title>
+</head>
+<body>
+    <h3>{{adventure.title}}</h3>
+    <h4>Description:</h4>
+    <p>{{adventure.description}}</p>
+    <h4>Added by:</h4>
+    <p>{{adventure.user.username}}</p>
+    <h4>Description</h4>
+    <p>{{adventure.description}}</p>
+    <h4>Reward:</h4>
+    <p>{{adventure.reward}}</p>
+    {% if session['user_id'] == adventure.user.id %}
+        <p><a href="/adventures/{{adventure.id}}/update">Edit</a></p>
+        <p><a href="/adventures/{{adventure.id}}/delete">Delete</a></p>
+    {% endif %}
+    <h4>Times Completed:</h4>
+    <p>{{adventure.times_completed}}</p>
+    <h4>Completed/Not Completed :</h4>
+    {% if adventure.liked == 0 %}
+        <a href="/adventures/{{adventure.id}}/completed">Completed</a>
+    {% else %}
+        <a href="/adventures/{{adventure.id}}/not_completed">Not Completed</a>
+    {% endif %}
+    <hr>
+    <p><a href="/dashboard">Back to dashboard</a></p>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h2>Update Description</h2>
+    <form action="/adventures/{{ adventure.id }}/update" method="POST">
+        <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+        <label for="title">Adventure Title:</label>
+        <input type="text" name="title" value="{{ adventure.title }}">
+        <label for="description">Description:</label>
+        <input type="text" name="description" value="{{ adventure.description }}">
+        <label for="reward">Reward:</label>
+        <input type="text" name="reward" value="{{ adventure.reward }}">
+        <input type="submit" value="Update">
+    </form>
+    <p><a href="/dashboard">Back to dashboard</a></p>
+</body>
+</html>

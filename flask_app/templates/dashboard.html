@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <p>Welcome {{user.username}}</p>
+    <p><a href="/adventures/add">Add New Adventure</a></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Title of Adventure:</th>
+                <th>Posted By:</th>
+                <th>Actions:</th>
+                <th>Times Completed:</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for adventure in adventures %}
+                <tr>
+                    <td><a href="/adventures/{{adventure.id}}">{{adventure.title}}</a></td>
+                    <td><a href="/users/{{adventure.user.id}}">{{adventure.user.username}}</a></td>
+                    <td>
+                        {% if session['user_id'] == adventure.user.id %}
+                            <a href="/adventures/{{adventure.id}}/update">Edit</a> | <a href="/adventures/{{adventure.id}}/delete">Delete</a>
+                        {% else %}
+                            {% if adventure.completed == 0 %}
+                                <a href="/adventures/{{adventure.id}}/completed">Completed</a>
+                            {% else %}
+                                <a href="/adventures/{{adventure.id}}/not_completed">Not Completed</a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>{{adventure.times_completed}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p><a href="/logout">Log out</a></p>
+</body>
+</html>

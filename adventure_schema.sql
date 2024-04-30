@@ -1,0 +1,1 @@
+SELECT * FROM adventure_schema.users;

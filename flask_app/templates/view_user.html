@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+</head>
+<body>
+    <h3>{{user.username}}</h3>
+    <h4>Adventures added by {{user.username}}:</h4>
+    {% for adventure in user.adventures %}
+        <p><a href="/adventures/{{adventure.id}}">{{adventure.title}}</a></p>
+    {% endfor %}
+    <hr>
+    <p><a href="/dashboard">Dashboard</a></p>
+</body>
+</html>
