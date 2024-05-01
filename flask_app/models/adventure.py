@@ -41,7 +41,7 @@ class Adventure:
 
             adventures.append(this_adventure)
 
-        return adventures # Return the full list of items
+        return adventures
     
     @classmethod
     def save(cls, data):
@@ -81,16 +81,16 @@ class Adventure:
         if results:
             this_adventure = cls(results[0])
 
-        #     user_data = {
-        #         'id': results[0]['user_id'],
-        #         'first_name': results[0]['first_name'],
-        #         'last_name': results[0]['last_name'],
-        #         'username': results[0]['username'],
-        #         'email': results[0]['email'],
-        #         'password': results[0]['password'],
-        #     }
+            # user_data = {
+            #     'id': results[0]['user_id'],
+            #     'first_name': results[0]['first_name'],
+            #     'last_name': results[0]['last_name'],
+            #     'username': results[0]['username'],
+            #     'email': results[0]['email'],
+            #     'password': results[0]['password'],
+            # }
             
-        #     this_adventure.user = user.User(user_data)
+            # this_adventure.user = user.User(user_data)
             return this_adventure
         else:
             # Handle the case where results is not as expected

@@ -10,7 +10,7 @@ from flask_app.models.user import User
 @app.route('/adventures/add', methods=['GET', 'POST'])
 def add_adventure():
     if request.method == 'GET':
-        return render_template("add_adventure.html")  # Update to render the form for adding a new adventure
+        return render_template("add_adventure.html")
 
     if not Adventure.validate_adventure(request.form):
         flash("Invalid data. Please check your input.", "error")

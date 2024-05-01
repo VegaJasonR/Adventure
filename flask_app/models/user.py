@@ -13,6 +13,7 @@ class User:
         self.first_name = data['first_name']
         self.last_name = data['last_name']
         self.username = data['username']
+        self.email = data['email']
         self.password = data['password']
         self.adventures = [] # holds adventure list
 
@@ -30,10 +31,10 @@ class User:
     @classmethod
     def save(cls, data):
         query = """INSERT INTO
-                    users
-                    (first_name, last_name, username, password)
-                    VALUES
-                    ( %(first_name)s, %(last_name)s, %(username)s, %(password)s"""
+                        users
+                    (first_name, last_name, username, email, password)
+                        VALUES
+                    ( %(first_name)s, %(last_name)s, %(username)s, %(email)s, %(password)s)"""
         return connectToMySQL('schema_adventure').query_db(query, data)
     
     @classmethod
@@ -49,22 +50,22 @@ class User:
         query = "SELECT * FROM users WHERE id = %(id)s;"
         results = connectToMySQL('schema_adventure').query_db(query,data)
         return cls(results[0])
-    
+
+
     @staticmethod
     def validate_user(user):
         is_valid = True
-
         query = "SELECT * FROM users WHERE email = %(email)s;"
-
+        
         results = connectToMySQL('schema_adventure').query_db(query,user)
 
         if len(results) >= 1:
             flash("E-mail already taken.")
-            is_valid=False
-        
+            is_valid = False
+
         if len(results) >= 1:
             flash("Username already taken.")
-            is_valid=False
+            is_valid = False
 
         if not EMAIL_REGEX.match(user['email']):
             flash("Invalid email format")
@@ -105,6 +106,6 @@ class User:
                 'completed': None,
                 'times_completed': None
             }
-            this_adventure = Adventure(adventure_data)  # Create an instance of the Adventure class directly
+            this_adventure = Adventure(adventure_data)
             user.adventures.append(this_adventure)
         return user

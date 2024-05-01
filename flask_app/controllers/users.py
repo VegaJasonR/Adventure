@@ -22,7 +22,10 @@ def register():
     pw_hash = bcrypt.generate_password_hash(request.form['password'])
     
     data = {
+        "first_name": request.form['first_name'],
+        "last_name": request.form['last_name'],
         "username": request.form['username'],
+        "email": request.form['email'],
         "password": pw_hash
     }
 
@@ -31,6 +34,7 @@ def register():
     session['user_id'] = id
 
     return redirect('/dashboard')
+
 
 @app.route('/login',methods=['POST'])
 def login():
@@ -73,7 +77,7 @@ def view_user(id):
     }
 
     user = User.get_user_adventures(data)
-
+    
     return render_template("view_user.html", user=user)
 
 @app.route('/logout')

@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>ADVENTURE</h1>
+    <hr>
     <h3>{{adventure.title}}</h3>
     <h4>Description:</h4>
     <p>{{adventure.description}}</p>
@@ -23,7 +24,7 @@
     <h4>Times Completed:</h4>
     <p>{{adventure.times_completed}}</p>
     <h4>Completed/Not Completed :</h4>
-    {% if adventure.liked == 0 %}
+    {% if adventure.completed == 0 %}
         <a href="/adventures/{{adventure.id}}/completed">Completed</a>
     {% else %}
         <a href="/adventures/{{adventure.id}}/not_completed">Not Completed</a>
