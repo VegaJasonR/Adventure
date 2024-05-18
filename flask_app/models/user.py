@@ -2,13 +2,15 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 import re
 
-from flask_app.models import  adventure, user
+from flask_app.models import adventure, user
 from flask_app.models.adventure import Adventure
 
+# Regular expression pattern for validating email addresses
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class User:
     def __init__(self, data) -> None:
+        # Initialize user attributes
         self.id = data['id']
         self.first_name = data['first_name']
         self.last_name = data['last_name']
@@ -17,6 +19,7 @@ class User:
         self.password = data['password']
         self.adventures = [] # holds adventure list
 
+    # Get all users from the database
     @classmethod
     def get_all(cls):
         query = "SELECT * FROM users;"
@@ -28,6 +31,7 @@ class User:
 
         return users
     
+    # Save a new user to the database
     @classmethod
     def save(cls, data):
         query = """INSERT INTO
@@ -37,6 +41,7 @@ class User:
                     ( %(first_name)s, %(last_name)s, %(username)s, %(email)s, %(password)s)"""
         return connectToMySQL('schema_adventure').query_db(query, data)
     
+    # Get a user by their username
     @classmethod
     def get_by_username(cls,data):
         query = "SELECT * FROM users WHERE username = %(username)s;"
@@ -45,13 +50,14 @@ class User:
             return False
         return cls(results[0])
     
+    # Get a user by their ID
     @classmethod
     def get_by_id(cls,data):
         query = "SELECT * FROM users WHERE id = %(id)s;"
         results = connectToMySQL('schema_adventure').query_db(query,data)
         return cls(results[0])
 
-
+    # Validate user input before saving to the database
     @staticmethod
     def validate_user(user):
         is_valid = True
@@ -91,6 +97,7 @@ class User:
 
         return is_valid
     
+    # Get all adventures associated with a user
     @classmethod
     def get_user_adventures(cls, data):
         query = "SELECT * FROM users LEFT JOIN adventures ON users.id=adventures.user_id WHERE users.id=%(id)s"

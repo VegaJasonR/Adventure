@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <a href="/logout"> Log Out</a>
+    <h1>ALL ADVENTURES </h1>
+    <thead>
+        <tr>
+            <th>Title:|</th>
+            <th>Posted by:|</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for adventure in adventures %}
+            <tr>
+                <table>
+                    <td><a href="/adventures/{{adventure.id}}/view">{{adventure.title}}</a></td>
+                    <td><a href="/users/{{adventure.user.id}}"></a>{{adventure.user.username}}</td>
+                    <hr>
+
+                </table>
+        {% endfor %}
+    </tbody>
+    <a href="/dashboard">ADVENTURES</a>
+</body>
+</html>
